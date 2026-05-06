@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Village {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  type        String   // "High Waste", "Growing Economy", etc.
+  
+  metrics     Metric[]
+  simulations Simulation[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Metric {
+  id          String   @id @default(cuid())
+  villageId   String   @unique
+  waste       Float    // Base waste level
+  economy     Float    // Base economy index
+  environment Float    // Base environment score
+  
+  village     Village  @relation(fields: [villageId], references: [id], onDelete: Cascade)
+
+  updatedAt   DateTime @updatedAt
+}
+
+model Simulation {
+  id             String   @id @default(cuid())
+  villageId      String
+  
+  // Configuration
+  wasteBank      Boolean  @default(false)
+  education      Boolean  @default(false)
+  infrastructure Boolean  @default(false)
+  
+  // Results over time
+  results        SimulationResult[]
+
+  village        Village  @relation(fields: [villageId], references: [id], onDelete: Cascade)
+
+  createdAt      DateTime @default(now())
+}
+
+model SimulationResult {
+  id           String     @id @default(cuid())
+  simulationId String
+  month        Int        // 1, 2, 3, 4, 5, 6
+  
+  waste        Float
+  economy      Float
+  environment  Float
+
+  simulation   Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+
+  @@unique([simulationId, month])
+}
