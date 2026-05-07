@@ -13,18 +13,33 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { login } from "@/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulating login
-    setTimeout(() => {
-      router.push("/dashboard");
-    }, 1500);
+    setError(null);
+
+    try {
+      const user = await login({ email, password });
+      // Redirect based on role
+      if (user.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Login gagal. Silakan coba lagi.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -85,14 +100,26 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
+            {/* Error message */}
+            {error && (
+              <div className="flex items-start gap-3 p-4 rounded-2xl bg-red-500/10 border border-red-500/20">
+                <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                <p className="text-sm text-red-400 leading-relaxed">{error}</p>
+              </div>
+            )}
+
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-300 ml-1">Email</label>
+              <label htmlFor="email" className="text-sm font-bold text-slate-300 ml-1">Email</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
+                  id="email"
                   type="email" 
                   placeholder="nama@email.com"
                   required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none rounded-2xl py-4 pl-12 pr-4 text-white transition-all focus:ring-4 focus:ring-primary/10"
                 />
               </div>
@@ -100,15 +127,19 @@ export default function LoginPage() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between ml-1">
-                <label className="text-sm font-bold text-slate-300">Kata Sandi</label>
+                <label htmlFor="password" className="text-sm font-bold text-slate-300">Kata Sandi</label>
                 <Link href="#" className="text-xs font-bold text-primary hover:underline">Lupa Kata Sandi?</Link>
               </div>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input 
+                  id="password"
                   type="password" 
                   placeholder="••••••••"
                   required
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none rounded-2xl py-4 pl-12 pr-4 text-white transition-all focus:ring-4 focus:ring-primary/10"
                 />
               </div>
