@@ -29,9 +29,10 @@ export default function LoginPage() {
 
     try {
       const user = await login({ email, password });
-      // Redirect based on role
       if (user.role === "admin") {
         router.push("/admin");
+      } else if (user.role === "driver") {
+        router.push("/driver");
       } else {
         router.push("/dashboard");
       }

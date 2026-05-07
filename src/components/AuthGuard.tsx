@@ -28,16 +28,20 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
       const isAdminRoute = pathname.startsWith("/admin");
       const isDashboardRoute = pathname.startsWith("/dashboard");
+      const isDriverRoute = pathname.startsWith("/driver");
 
       if (isAdminRoute && user.role !== "admin") {
-        // Non-admin tried to access admin area
-        router.replace("/dashboard");
+        router.replace(user.role === "driver" ? "/driver" : "/dashboard");
         return;
       }
 
-      if (isDashboardRoute && user.role === "admin") {
-        // Admin landed on user dashboard — send to admin panel
-        router.replace("/admin");
+      if (isDriverRoute && user.role !== "driver") {
+        router.replace(user.role === "admin" ? "/admin" : "/dashboard");
+        return;
+      }
+
+      if (isDashboardRoute && user.role !== "user") {
+        router.replace(user.role === "admin" ? "/admin" : "/driver");
         return;
       }
 
