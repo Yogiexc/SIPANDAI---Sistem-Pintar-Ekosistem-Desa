@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DesaSim | AI Digital Twin Desa",
-  description: "Futuristic, interactive AI-powered Digital Twin platform for Smart Villages (Desa Cerdas) to simulate real-world conditions and predict decision impacts.",
+  title: "SIPANDAI | Smart Village Waste Management",
+  description: "AI-powered waste management system for smart villages. Request pickups, earn points, and build a circular economy.",
 };
 
 export default function RootLayout({
