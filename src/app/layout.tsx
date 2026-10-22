@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -9,8 +9,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DesaSim | AI Digital Twin Desa",
-  description: "Futuristic, interactive AI-powered Digital Twin platform for Smart Villages (Desa Cerdas) to simulate real-world conditions and predict decision impacts.",
+  title: "SIPANDAI | Sistem Pintar Ekosistem & AI Digital Twin Desa",
+  description: "Platform AI Digital Twin Desa Cerdas (Smart Village) Indonesia untuk simulasi proyeksi kebijakan publik, tata kelola sampah, dan dampak ekonomi sebelum implementasi.",
+  keywords: ["Smart Village", "Desa Cerdas", "Digital Twin", "Simulasi Kebijakan Desa", "Next.js", "AI Indonesia", "SIPANDAI"],
+  authors: [{ name: "Bryan Yogie Saputra", url: "https://github.com/Yogiexc" }],
+  openGraph: {
+    title: "SIPANDAI - Sistem Pintar Ekosistem Desa",
+    description: "Simulasi prediktif digital twin & insight AI untuk akselerasi ekosistem desa berkelanjutan.",
+    type: "website",
+    locale: "id_ID",
+  },
 };
 
 export default function RootLayout({
@@ -19,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className={cn("min-h-screen font-sans antialiased", inter.variable)}>
+    <html lang="id" className="dark scroll-smooth">
+      <body className={cn("min-h-screen font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-300", inter.variable)}>
         {children}
       </body>
     </html>

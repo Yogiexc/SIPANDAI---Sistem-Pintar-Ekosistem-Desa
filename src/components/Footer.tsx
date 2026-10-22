@@ -1,60 +1,95 @@
-import { Leaf, MessageCircle, Globe, Mail } from "lucide-react";
+﻿import { Sparkles, Globe, Mail, Heart, Layers, ExternalLink } from "lucide-react";
+import { GitBranchIcon } from "./GitIcon";
 import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-slate-950 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+    <footer className="border-t border-white/10 bg-[#02070c] pt-16 pb-10">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          
+          {/* Brand Info */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-blue-500 flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-slate-900" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500/30 to-blue-500/30 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                <Sparkles className="w-5 h-5 text-emerald-400" />
               </div>
-              <span className="text-xl font-bold text-white tracking-tighter">DesaSim AI</span>
+              <span className="text-xl font-black text-white tracking-tight">
+                SIPANDAI <span className="text-emerald-400 font-semibold text-xs px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">AI Twin</span>
+              </span>
             </div>
-            <p className="text-slate-400 text-sm max-w-xs">
-              Membangun masa depan desa Indonesia yang lebih cerdas, berkelanjutan, dan berbasis data melalui simulasi Digital Twin.
+            
+            <p className="text-slate-400 text-sm max-w-sm leading-relaxed mb-4">
+              Sistem Pintar Ekosistem Desa — Platform Kembar Digital (*Digital Twin*) &amp; Simulasi Kebijakan Cerdas untuk Desa Berkelanjutan di Indonesia.
             </p>
+            
+            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
+              <span>Dibangun dengan Next.js 16 • React 19 • Leaflet • Tailwind</span>
+            </div>
           </div>
           
+          {/* Navigasi Platform */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Platform</h4>
-            <ul className="space-y-2 text-slate-400">
-              <li><Link href="#dashboard" className="hover:text-emerald-400 transition-colors">Dashboard</Link></li>
-              <li><Link href="#simulation" className="hover:text-emerald-400 transition-colors">Simulation Engine</Link></li>
-              <li><Link href="#insights" className="hover:text-emerald-400 transition-colors">AI Insights</Link></li>
-              <li><Link href="#compare" className="hover:text-emerald-400 transition-colors">Comparison Mode</Link></li>
+            <h4 className="text-white font-bold text-sm mb-4 tracking-wider uppercase">Fitur Platform</h4>
+            <ul className="space-y-2.5 text-sm text-slate-400">
+              <li>
+                <a href="#beranda" className="hover:text-emerald-400 transition-colors">Digital Twin Map</a>
+              </li>
+              <li>
+                <a href="#simulasi" className="hover:text-emerald-400 transition-colors">Proyeksi Multivariat</a>
+              </li>
+              <li>
+                <a href="#insight" className="hover:text-emerald-400 transition-colors">AI Prescriptive Policy</a>
+              </li>
+              <li>
+                <a href="#data-desa" className="hover:text-emerald-400 transition-colors">Komparasi Skenario</a>
+              </li>
+              <li>
+                <a href="#arsitektur" className="hover:text-emerald-400 transition-colors">Arsitektur Sistem</a>
+              </li>
             </ul>
           </div>
           
+          {/* Tautan Pengembang */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Connect</h4>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center border border-white/10 hover:border-emerald-500/50 hover:text-emerald-400 transition-all text-slate-400">
-                <MessageCircle className="w-4 h-4" />
+            <h4 className="text-white font-bold text-sm mb-4 tracking-wider uppercase">Pengembang</h4>
+            <div className="space-y-3">
+              <a 
+                href="https://github.com/Yogiexc" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-slate-300 hover:text-emerald-400 transition-colors group"
+              >
+                <GitBranchIcon className="w-4 h-4 text-emerald-400" />
+                <span>github.com/Yogiexc</span>
+                <ExternalLink className="w-3 h-3 opacity-60" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center border border-white/10 hover:border-emerald-500/50 hover:text-emerald-400 transition-all text-slate-400">
-                <Globe className="w-4 h-4" />
+
+              <a 
+                href="mailto:yogiexsaputra@gmail.com" 
+                className="flex items-center gap-2 text-sm text-slate-300 hover:text-emerald-400 transition-colors group"
+              >
+                <Mail className="w-4 h-4 text-slate-400 group-hover:text-emerald-400" />
+                <span>yogiexsaputra@gmail.com</span>
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center border border-white/10 hover:border-emerald-500/50 hover:text-emerald-400 transition-all text-slate-400">
-                <Mail className="w-4 h-4" />
-              </a>
-            </div>
-            <div className="mt-6">
-              <p className="text-sm text-slate-500">Contact us:</p>
-              <a href="mailto:hello@desasim.id" className="text-emerald-400 hover:text-emerald-300">hello@desasim.id</a>
+
+              <div className="pt-2">
+                <span className="inline-block px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+                  Portfolio Project
+                </span>
+              </div>
             </div>
           </div>
+
         </div>
         
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
-            © {new Date().getFullYear()} DesaSim Digital Twin Platform. All rights reserved.
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+          <p>
+            &copy; {new Date().getFullYear()} SIPANDAI (Sistem Pintar Ekosistem Desa). Dibuat oleh <strong className="text-slate-200">Bryan Yogie Saputra</strong>.
           </p>
-          <div className="flex gap-6 text-sm text-slate-500">
-            <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+          <div className="flex items-center gap-1 text-slate-400">
+            <span>Dirancang untuk kemajuan Desa Cerdas Indonesia</span>
           </div>
         </div>
       </div>
