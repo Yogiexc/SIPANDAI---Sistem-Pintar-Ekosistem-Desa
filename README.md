@@ -13,7 +13,7 @@
 [![Leaflet](https://img.shields.io/badge/Leaflet-Spasial_Map-199900?style=for-the-badge&logo=leaflet)](https://leafletjs.com/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
-**[🚀 Live Demo](https://sipandai.vercel.app)** • **[💻 Repository GitHub](https://github.com/Yogiexc/SIPANDAI---Sistem-Pintar-Ekosistem-Desa)**
+**[🚀 Live Demo](https://sipandai-desa-twin.vercel.app)** • **[💻 Repository GitHub](https://github.com/Yogiexc/SIPANDAI---Sistem-Pintar-Ekosistem-Desa)**
 
 </div>
 
