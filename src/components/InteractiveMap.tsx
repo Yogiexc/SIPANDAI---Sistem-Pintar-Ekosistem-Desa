@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
@@ -16,26 +16,26 @@ const createCustomIcon = (color: string, glow: string, opacity: number = 1) => {
     className: "custom-leaflet-icon",
     html: `
       <div style="
-        width: 24px; 
-        height: 24px; 
+        width: 22px; 
+        height: 22px; 
         background: ${color}; 
         border-radius: 50%; 
         border: 2px solid white;
-        box-shadow: 0 0 15px ${glow};
+        box-shadow: 0 0 16px ${glow};
         opacity: ${opacity};
         animation: pulse ${2 - opacity}s infinite;
         transition: all 0.5s ease;
       "></div>
       <style>
         @keyframes pulse {
-          0% { box-shadow: 0 0 0 0 ${glow}80; }
-          70% { box-shadow: 0 0 0 15px transparent; }
+          0% { box-shadow: 0 0 0 0 ${glow}90; }
+          70% { box-shadow: 0 0 0 14px transparent; }
           100% { box-shadow: 0 0 0 0 transparent; }
         }
       </style>
     `,
-    iconSize: [24, 24],
-    iconAnchor: [12, 12],
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
   });
 };
 
@@ -49,14 +49,14 @@ export function InteractiveMap({ currentWaste = 100, currentEconomy = 50 }: Inte
   if (!mounted) return null;
 
   // Dynamic Map Visuals based on Simulation Metrics
-  const wasteOpacity = Math.min(0.6, Math.max(0.1, currentWaste / 150));
+  const wasteOpacity = Math.min(0.6, Math.max(0.15, currentWaste / 150));
   const wasteRadius = Math.max(100, currentWaste * 4); 
 
-  const ecoOpacity = Math.min(0.5, Math.max(0.1, currentEconomy / 150));
+  const ecoOpacity = Math.min(0.5, Math.max(0.15, currentEconomy / 150));
   const ecoRadius = Math.max(200, currentEconomy * 5);
 
   const envScore = 100 - currentWaste; 
-  const envOpacity = Math.min(0.5, Math.max(0.1, envScore / 100));
+  const envOpacity = Math.min(0.5, Math.max(0.15, envScore / 100));
   const envRadius = Math.max(150, envScore * 6);
 
   const wasteIcon = createCustomIcon("#ef4444", "#ef4444", wasteOpacity + 0.4); 
@@ -72,18 +72,20 @@ export function InteractiveMap({ currentWaste = 100, currentEconomy = 50 }: Inte
 
   return (
     <div className="w-full h-full rounded-3xl overflow-hidden relative border border-white/10 shadow-[0_0_50px_rgba(16,185,129,0.1)] transition-all duration-1000">
-      <div className="absolute inset-0 pointer-events-none z-[400] rounded-3xl shadow-[inset_0_0_100px_rgba(3,10,16,0.9)]" />
+      <div className="absolute inset-0 pointer-events-none z-[400] rounded-3xl shadow-[inset_0_0_120px_rgba(2,7,12,0.92)]" />
       
       <MapContainer 
         center={[-2.5, 118.0]} 
         zoom={5} 
         scrollWheelZoom={false}
-        className="w-full h-full z-0 bg-[#0a0a0a]"
+        className="w-full h-full z-0 bg-[#02070c]"
         zoomControl={false}
       >
+        {/* OpenStreetMap Tile Layer dengan Dark CSS Filter (100% Free, No Watermark, No API Key needed) */}
         <TileLayer
-          attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          className="map-dark-tiles"
         />
 
         {/* Dynamic Simulation Zones */}
@@ -107,10 +109,10 @@ export function InteractiveMap({ currentWaste = 100, currentEconomy = 50 }: Inte
           <Marker key={marker.id} position={marker.position} icon={marker.icon}>
             <Popup className="custom-popup">
               <div className="bg-slate-900 border border-slate-700 p-3 rounded-xl shadow-xl">
-                <h4 className="text-white font-semibold mb-1">{marker.title}</h4>
+                <h4 className="text-white font-semibold mb-1 text-xs">{marker.title}</h4>
                 <div className="flex items-center gap-2 mt-2">
                   <span className="w-2 h-2 rounded-full" style={{ background: marker.type === 'waste' ? '#ef4444' : marker.type === 'economy' ? '#3b82f6' : '#10b981' }}></span>
-                  <span className="text-slate-300 text-sm font-medium">{marker.stat}</span>
+                  <span className="text-slate-300 text-xs font-medium">{marker.stat}</span>
                 </div>
               </div>
             </Popup>
@@ -119,6 +121,9 @@ export function InteractiveMap({ currentWaste = 100, currentEconomy = 50 }: Inte
       </MapContainer>
       
       <style dangerouslySetInnerHTML={{__html: `
+        .map-dark-tiles {
+          filter: brightness(0.55) invert(1) contrast(3) hue-rotate(200deg) saturate(0.28) !important;
+        }
         .leaflet-popup-content-wrapper {
           background: transparent !important;
           box-shadow: none !important;
@@ -134,10 +139,18 @@ export function InteractiveMap({ currentWaste = 100, currentEconomy = 50 }: Inte
           margin: 0 !important;
         }
         .leaflet-container {
-          background: #0a0a0a !important;
+          background: #02070c !important;
         }
         path.leaflet-interactive {
           transition: all 1.5s ease-in-out;
+        }
+        .leaflet-control-attribution {
+          background: rgba(2, 7, 12, 0.7) !important;
+          color: #64748b !important;
+          font-size: 10px !important;
+        }
+        .leaflet-control-attribution a {
+          color: #94a3b8 !important;
         }
       `}} />
     </div>
